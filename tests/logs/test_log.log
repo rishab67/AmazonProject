@@ -1,0 +1,36 @@
+2025-07-26 11:33:35,588 - INFO - SearchPage - Locating search box
+2025-07-26 11:33:35,945 - INFO - SearchPage - Entered search term: laptop
+2025-07-26 11:33:35,946 - INFO - SearchPage - Clicking search button
+2025-07-26 11:40:28,665 - INFO - SearchPage - Locating search box
+2025-07-26 11:40:28,979 - INFO - SearchPage - Entered search term: laptop
+2025-07-26 11:40:28,980 - INFO - SearchPage - Clicking search button
+2025-07-26 11:44:33,888 - INFO - SearchPage - Locating search box
+2025-07-26 11:44:34,241 - INFO - SearchPage - Entered search term: laptop
+2025-07-26 11:44:34,241 - INFO - SearchPage - Clicking search button
+2025-07-26 11:44:34,671 - INFO - SearchResultsPage - Applying brand filter: HP
+2025-07-26 11:44:39,175 - INFO - SearchResultsPage - Selecting the first product
+2025-07-26 11:44:49,251 - ERROR - SearchResultsPage - Failed to select first product: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x961af3+62339]
+	GetHandleVerifier [0x0x961b34+62404]
+	(No symbol) [0x0x7a2123]
+	(No symbol) [0x0x7ea86e]
+	(No symbol) [0x0x7eac0b]
+	(No symbol) [0x0x832f72]
+	(No symbol) [0x0x80f404]
+	(No symbol) [0x0x8307a3]
+	(No symbol) [0x0x80f1b6]
+	(No symbol) [0x0x7de7a2]
+	(No symbol) [0x0x7df644]
+	GetHandleVerifier [0x0xbd6683+2637587]
+	GetHandleVerifier [0x0xbd1a8a+2618138]
+	GetHandleVerifier [0x0x98856a+220666]
+	GetHandleVerifier [0x0x978998+156200]
+	GetHandleVerifier [0x0x97f12d+182717]
+	GetHandleVerifier [0x0x969a38+94920]
+	GetHandleVerifier [0x0x969bc2+95314]
+	GetHandleVerifier [0x0x954d0a+9626]
+	BaseThreadInitThunk [0x0x761e5d49+25]
+	RtlInitializeExceptionChain [0x0x7724d2fb+107]
+	RtlGetAppContainerNamedObjectPath [0x0x7724d281+561]
+
