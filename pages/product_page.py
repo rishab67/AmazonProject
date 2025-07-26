@@ -1,7 +1,10 @@
 import logging
+import time
+from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 
 class ProductPage:
     def __init__(self, driver, logger=None):
@@ -16,12 +19,56 @@ class ProductPage:
 
     def add_to_cart(self):
         try:
-            self.logger.info("Attempting to add product to cart")
-            add_to_cart_btn = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.ID, "add-to-cart-button"))
-            )
-            add_to_cart_btn.click()
-            self.logger.info("Product added to cart successfully")
+            wait = WebDriverWait(self.driver, 10)
+
+            # Scroll & click standard Add to Cart
+            try:
+                add_button = wait.until(EC.presence_of_element_located((By.ID, "add-to-cart-button")))
+                self.driver.execute_script("arguments[0].scrollIntoView(true);", add_button)
+                time.sleep(1)
+                self.driver.execute_script("arguments[0].click();", add_button)
+                self.logger.info("Clicked standard Add to Cart button.")
+            except TimeoutException:
+                self.logger.warning("Standard Add to Cart button not found. Trying fallbacks...")
+
+                # Try Buying Options
+                try:
+                    see_options = wait.until(
+                        EC.element_to_be_clickable((By.ID, "buybox-see-all-buying-choices-announce"))
+                    )
+                    see_options.click()
+                    add_button = wait.until(EC.element_to_be_clickable((By.NAME, "submit.addToCart")))
+                    self.driver.execute_script("arguments[0].click();", add_button)
+                    self.logger.info("Added to cart via Buying Options.")
+                except TimeoutException:
+                    # Try popup/side cart
+                    try:
+                        proceed_cart = wait.until(
+                            EC.element_to_be_clickable((By.ID, "attach-view-cart-button-form"))
+                        )
+                        self.driver.execute_script("arguments[0].click();", proceed_cart)
+                        self.logger.info("Added to cart using popup cart.")
+                    except TimeoutException:
+                        self.logger.error("No Add to Cart option found.")
+                        return False
+
+            # ✅ Now verify cart confirmation
+            try:
+                wait.until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//h1[contains(text(),'Added to Cart')] | //span[contains(text(),'Added to Cart')]")
+                    )
+                )
+                self.logger.info("Confirmed: Product was added to cart.")
+                return True
+            except TimeoutException:
+                self.logger.warning("No 'Added to Cart' message. Taking screenshot...")
+                timestamp = time.strftime("%Y%m%d_%H%M%S")
+                screenshot_path = f"reports/failure_{timestamp}.png"
+                self.driver.save_screenshot(screenshot_path)
+                self.logger.error(f"Screenshot saved: {screenshot_path}")
+                return False
+
         except Exception as e:
             self.logger.error(f"Failed to add to cart: {e}")
-            raise
+            return False
