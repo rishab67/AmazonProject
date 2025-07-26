@@ -1,36 +1,46 @@
 # Amazon Automation Project (Selenium + Python + Pytest)
 
 ## 📌 Overview
-This project automates a basic Amazon workflow using **Selenium WebDriver**, **Python**, and **Pytest**.  
-It is part of my **45-Day Selenium Learning Plan** and currently includes:
-
-- Searching for a product on Amazon
-- Applying brand filters (e.g., HP laptops)
-- Skipping sponsored results
-- Selecting the first valid product
-- Extracting multiple product details (title, price, link) and saving them to CSV
-- GitHub version control integration
+This project is part of my **45-Day Selenium with Python learning plan**. It automates a real-world Amazon workflow using the **Page Object Model (POM)** design pattern and integrates with **pytest** for structured testing.
 
 ---
 
-## ✅ Features Completed
-1. Page Object Model (POM) structure implemented  
-2. Search → Filter → Select Product flow  
-3. Dynamic waits and scrolling  
-4. Logging for debugging  
-5. CSV export for extracted products  
+## ✅ Features Implemented
+- Launch Amazon and perform product search.
+- Apply brand filters dynamically.
+- Skip sponsored items and select valid products.
+- Handle multiple windows/tabs.
+- Extract all search results with price and save to CSV.
+- Logging integrated for debugging and traceability.
+- Structured using Page Object Model (POM) for scalability.
 
 ---
 
-## 🚧 Work In Progress
-- Add to Cart functionality  
-- Complete Day 22 tasks (pytest reports, assertions, logging improvements)  
+## 🛠️ Tech Stack
+- **Language:** Python 3.x  
+- **Automation Tool:** Selenium WebDriver  
+- **Testing Framework:** pytest  
+- **Others:** CSV handling, Logging, GitHub for version control
 
 ---
 
-## ⚙️ Requirements
-- Python 3.13+  
-- Google Chrome + Chromedriver  
-- Install dependencies:  
-  ```bash
-  pip install -r requirements.txt
+## 🚀 Next Steps
+- Add "Add to Cart" flow.
+- Implement detailed test reporting (Allure/HTML).
+- Integrate GitHub Actions (CI/CD).
+
+---
+
+## 📂 Project Structure
+
+AmazonProject/
+├── pages/
+│ ├── search_page.py
+│ ├── search_results_page.py
+│ └── product_page.py
+├── tests/
+│ └── test_amazon_flow.py
+├── amazon_results.csv
+├── pytest.ini
+├── README.md
+└── LICENSE
